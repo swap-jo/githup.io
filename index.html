@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="Arabia">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swap Jo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css">
+  <link rel="stylesheet" type="text/css" href="anas.css">
+ </head>
+<body>
+  <div class="container">
+     <img class="image" src= "jow.jpg" alt="">
+    
+    <div class="question">
+    <h3>اجب علي سؤال حلقة اليوم</h3>
+    
+    </div>
+    
+    <div class="separator"></div>
+    <div class="form-container">
+      
+
+      <form action="https://script.google.com/macros/s/AKfycbxA9HlcMXXLB26wVbTsSXV81Qo76BGz3CRbxkkEh9WY2gQN_XkFm7jMmzBw5G0pjgLx/exec" method="post" name="anas" id="myForm"> 
+        
+        <input type="tel" name="phone" id="phone" placeholder="رقم الجوال " required>
+        <textarea name="text" rows="4" placeholder="اكتب الاجابة هنا!" required></textarea>
+
+        <input type="submit" value="ارسل الان">
+      </form>
+      
+      
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxA9HlcMXXLB26wVbTsSXV81Qo76BGz3CRbxkkEh9WY2gQN_XkFm7jMmzBw5G0pjgLx/exec';
+  const form = document.getElementById('myForm');
+
+
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => alert("THANK YOU"))
+      .catch(error => console.error('Error!', error.message))
+      
+  })
+
+  const http = require('http');
+
+// Proxy server that sends requests to different origin server
+constserver = http.createServer((proxyReq, proxyRes) => {
+
+    // Send request to origin-b server.
+    http.get('https://script.google.com/macros/s/AKfycbypIQRsrQV6Uy-xiuui88rLivAc46Xxszxwzcd80ngBo7Pe4O5PJbQWFh7d0qFbM0_V1w/exec', res => {
+
+        let rawData = '';
+    
+        // Add data to the overall data string
+        res.on('data', chunk => {
+            rawData += chunk;
+        });
+
+        // No more data send to client
+        res.on('end', () => {
+            // Set header to allow request from browser
+            proxyRes.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+            proxyRes.write(rawData);
+            proxyRes.end();
+        });
+    
+        res.on('error', err => {
+            console.log(err);
+        });
+    
+    });
+
+});
+
+server.listen(1235, () => {
+    console.log(`Proxy server listening on port 1235...`);
+});
+
+const http = require('http');
+const port = 1234;
+
+// Simple server that accepts requests on port 1234 and
+// responds with the word "hi"
+const server = http.createServer((req, res) => {
+
+    res.write('hi');
+    res.end();
+});
+
+server.listen(port, () => {
+    console.log(`Server listening on port ${port}...`);
+});
+
+</script>
+      
+     
+</body>
+</html>
